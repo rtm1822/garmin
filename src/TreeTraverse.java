@@ -27,7 +27,7 @@ public class TreeTraverse {
             return true;
 
         //Else if the node has no children return false
-        } else if (node.getChildren() == null) {
+        } else if (node.getChildren() == null || node.getChildren().size() == 0) {
             return false;
         }
 
