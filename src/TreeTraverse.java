@@ -8,7 +8,7 @@ public class TreeTraverse {
         Node root = setup();
 
         //Find our target node by traversing the tree via DFS
-        traverse(root, "FindMe");
+        Node result = traverse(root, "FindMe");
     }
 
     /**
@@ -16,34 +16,34 @@ public class TreeTraverse {
      * When the target name is found, stop searching
      * @param node - current node to be searched
      * @param target - target name
-     * @return - whether or not a node with the target name has been found
+     * @return - The node with our target name
      */
-    public static boolean traverse(Node node, String target){
+    public static Node traverse(Node node, String target){
         //Print the current node name
         System.out.println(node.getName());
 
-        //If we encounter the node with the target name, stop and return true
+        //If we encounter the node with the target name, stop and return the node
         if (node.getName().equals(target)) {
-            return true;
+            return node;
 
-        //Else if the node has no children return false
+        //Else if the node has no children return null (marking that our node is not found)
         } else if (node.getChildren() == null || node.getChildren().size() == 0) {
-            return false;
+            return null;
         }
 
         //For each child node, we want to traverse it recursively
         for (Node n: node.getChildren()) {
             //Traverse the subtree to search for our target node
-            boolean subTreeHasTargetNode = traverse(n, target);
+            Node subTreeHasTargetNode = traverse(n, target);
 
-            //If our subtree traversal was successful in finding the target node, we can stop and return true
+            //If our subtree traversal was successful in finding the target node, we can stop and return the node
             //Otherwise we want to keep iterating over all the child nodes
-            if(subTreeHasTargetNode){
-                return true;
+            if(subTreeHasTargetNode != null){
+                return subTreeHasTargetNode;
             }
         }
-        //If all the children failed to find our node, return false (i.e. subtree does not contain our desired node)
-        return false;
+        //If all the children failed to find our node, return null (i.e. subtree does not contain our desired node)
+        return null;
     }
 
     /**
